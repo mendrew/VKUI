@@ -78,6 +78,8 @@ export { Badge } from "./components/Badge/Badge";
 export type { BadgeProps } from "./components/Badge/Badge";
 export { ButtonGroup } from "./components/ButtonGroup/ButtonGroup";
 export type { ButtonGroupProps } from "./components/ButtonGroup/ButtonGroup";
+export { ButtonBase } from "./components/ButtonBase/ButtonBase";
+export type { ButtonBaseProps } from "./components/ButtonBase/ButtonBase";
 export { Button } from "./components/Button/Button";
 export type { ButtonProps } from "./components/Button/Button";
 export { IconButton } from "./components/IconButton/IconButton";

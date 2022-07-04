@@ -22,6 +22,7 @@
 
 /* Primitives */
 @import "../components/Button/Button.css";
+@import "../components/ButtonBase/ButtonBase.css";
 @import "../components/Removable/Removable.css";
 @import "../components/FocusVisible/FocusVisible.css";
 

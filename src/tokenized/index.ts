@@ -10,6 +10,9 @@ export type { FormLayoutGroupProps } from "../components/FormLayoutGroup/FormLay
 export { Button } from "../components/Button/Button";
 export type { ButtonProps } from "../components/Button/Button";
 
+export { ButtonBase } from "../components/ButtonBase/ButtonBase";
+export type { ButtonBaseProps } from "../components/ButtonBase/ButtonBase";
+
 export { MiniInfoCell } from "../components/MiniInfoCell/MiniInfoCell";
 export type { MiniInfoCellProps } from "../components/MiniInfoCell/MiniInfoCell";
 
