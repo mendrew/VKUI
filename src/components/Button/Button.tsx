@@ -1,7 +1,6 @@
 import * as React from "react";
 import { classNames } from "../../lib/classNames";
 import { ConfigProviderContext } from "../ConfigProvider/ConfigProviderContext";
-import { TappableProps, Tappable } from "../Tappable/Tappable";
 import { Title } from "../Typography/Title/Title";
 import { Text } from "../Typography/Text/Text";
 import { Subhead } from "../Typography/Subhead/Subhead";
@@ -14,11 +13,15 @@ import {
   withAdaptivity,
 } from "../../hoc/withAdaptivity";
 import { PlatformType, IOS, VKCOM, ANDROID } from "../../lib/platform";
+import { ButtonBase, ButtonBaseProps } from "../ButtonBase/ButtonBase";
 import { Spinner } from "../Spinner/Spinner";
 import { Headline } from "../Typography/Headline/Headline";
+import { AdaptivityProvider } from "../AdaptivityProvider/AdaptivityProvider";
 import "./Button.css";
 
-export interface VKUIButtonProps extends HasAlign {
+export interface VKUIButtonProps
+  extends HasAlign,
+    Omit<ButtonBaseProps, "size"> {
   /**
    Значения `commerce`, `destructive`, `overlay_...` будут упразднены в 5.0.0
    */
@@ -40,9 +43,7 @@ export interface VKUIButtonProps extends HasAlign {
   loading?: boolean;
 }
 
-export interface ButtonProps
-  extends Omit<TappableProps, "size">,
-    VKUIButtonProps {}
+export type ButtonProps = VKUIButtonProps;
 
 interface ButtonTypographyProps extends HasComponent {
   size: ButtonProps["size"];
@@ -152,11 +153,8 @@ const ButtonComponent = ({
   children,
   before,
   after,
-  getRootRef,
   sizeY,
-  Component = "button",
   loading,
-  onClick,
   stopPropagation = true,
   ...restProps
 }: ButtonProps) => {
@@ -170,53 +168,52 @@ const ButtonComponent = ({
   const hasNewTokens = React.useContext(ConfigProviderContext).hasNewTokens;
 
   return (
-    <Tappable
-      {...restProps}
-      Component={restProps.href ? "a" : Component}
-      onClick={loading ? undefined : onClick}
-      focusVisibleMode="outside"
-      stopPropagation={stopPropagation}
-      vkuiClass={classNames(
-        "Button",
-        `Button--sz-${size}`,
-        `Button--lvl-${resolvedMode}`,
-        `Button--clr-${resolvedAppearance}`,
-        `Button--aln-${align}`,
-        `Button--sizeY-${sizeY}`,
-        stretched && "Button--stretched",
-        hasIcons && "Button--with-icon",
-        hasIconOnly && "Button--singleIcon",
-        loading && "Button--loading"
-      )}
-      getRootRef={getRootRef}
-      hoverMode={hasNewTokens ? "Button--hover" : "background"}
-      activeMode={hasNewTokens ? "Button--active" : "opacity"}
-    >
-      {loading && <Spinner size="small" vkuiClass="Button__spinner" />}
-      <span vkuiClass="Button__in">
-        {before && (
-          <span vkuiClass="Button__before" role="presentation">
-            {before}
-          </span>
+    <AdaptivityProvider sizeY={sizeY}>
+      <ButtonBase
+        // appearance={resolvedAppearance}
+        // mode={resolvedMode as ButtonBaseProps["mode"]}
+        hoverMode={hasNewTokens ? "Button--hover" : "background"}
+        activeMode={hasNewTokens ? "Button--active" : "opacity"}
+        stopPropagation={stopPropagation}
+        {...restProps}
+        vkuiClass={classNames(
+          "Button",
+          `Button--sz-${size}`,
+          `Button--lvl-${resolvedMode}`,
+          `Button--clr-${resolvedAppearance}`,
+          `Button--aln-${align}`,
+          `Button--sizeY-${sizeY}`,
+          stretched && "Button--stretched",
+          hasIcons && "Button--with-icon",
+          hasIconOnly && "Button--singleIcon"
         )}
-        {children && (
-          <ButtonTypography
-            size={size}
-            sizeY={sizeY}
-            platform={platform}
-            vkuiClass="Button__content"
-            Component="span"
-          >
-            {children}
-          </ButtonTypography>
-        )}
-        {after && (
-          <span vkuiClass="Button__after" role="presentation">
-            {after}
-          </span>
-        )}
-      </span>
-    </Tappable>
+      >
+        {loading && <Spinner size="small" vkuiClass="Button__spinner" />}
+        <span vkuiClass="Button__in">
+          {before && (
+            <span vkuiClass="Button__before" role="presentation">
+              {before}
+            </span>
+          )}
+          {children && (
+            <ButtonTypography
+              size={size}
+              sizeY={sizeY}
+              platform={platform}
+              vkuiClass="Button__content"
+              Component="span"
+            >
+              {children}
+            </ButtonTypography>
+          )}
+          {after && (
+            <span vkuiClass="Button__after" role="presentation">
+              {after}
+            </span>
+          )}
+        </span>
+      </ButtonBase>
+    </AdaptivityProvider>
   );
 };
 

@@ -3,7 +3,10 @@ import { TappableProps, Tappable } from "../Tappable/Tappable";
 import { HasChildren, HasComponent } from "../../types";
 import "./ButtonBase.css";
 
-export type ButtonBaseProps = TappableProps & HasChildren & HasComponent;
+export interface ButtonBaseProps
+  extends Omit<TappableProps, "size">,
+    HasChildren,
+    HasComponent {}
 
 /**
  * @see https://vkcom.github.io/VKUI/#/ButtonBase
