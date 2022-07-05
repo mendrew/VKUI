@@ -13,10 +13,6 @@
   min-width: var(--vkui--size_button_minimum_width--regular);
 }
 
-.Button--loading {
-  cursor: progress;
-}
-
 .Button--singleIcon {
   min-width: var(--vkui--size_button_small_height--compact);
 }
@@ -26,16 +22,6 @@
   width: 100%;
   flex-grow: 1;
   flex-basis: 0;
-}
-
-.Button__in {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  min-height: inherit;
-  text-align: center;
-  box-sizing: border-box;
 }
 
 .Button--aln-left .Button__in {
@@ -187,18 +173,6 @@
 
 .Button__content--caps {
   transform: translateY(0);
-}
-
-.Button__spinner {
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-}
-
-.Button__spinner + .Button__in {
-  visibility: hidden;
 }
 
 /* Button's backgrounds */

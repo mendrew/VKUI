@@ -14,7 +14,6 @@ import {
 } from "../../hoc/withAdaptivity";
 import { PlatformType, IOS, VKCOM, ANDROID } from "../../lib/platform";
 import { ButtonBase, ButtonBaseProps } from "../ButtonBase/ButtonBase";
-import { Spinner } from "../Spinner/Spinner";
 import { Headline } from "../Typography/Headline/Headline";
 import { AdaptivityProvider } from "../AdaptivityProvider/AdaptivityProvider";
 import "./Button.css";
@@ -40,7 +39,6 @@ export interface VKUIButtonProps
   stretched?: boolean;
   before?: React.ReactNode;
   after?: React.ReactNode;
-  loading?: boolean;
 }
 
 export type ButtonProps = VKUIButtonProps;
@@ -154,7 +152,6 @@ const ButtonComponent = ({
   before,
   after,
   sizeY,
-  loading,
   stopPropagation = true,
   ...restProps
 }: ButtonProps) => {
@@ -188,30 +185,27 @@ const ButtonComponent = ({
           hasIconOnly && "Button--singleIcon"
         )}
       >
-        {loading && <Spinner size="small" vkuiClass="Button__spinner" />}
-        <span vkuiClass="Button__in">
-          {before && (
-            <span vkuiClass="Button__before" role="presentation">
-              {before}
-            </span>
-          )}
-          {children && (
-            <ButtonTypography
-              size={size}
-              sizeY={sizeY}
-              platform={platform}
-              vkuiClass="Button__content"
-              Component="span"
-            >
-              {children}
-            </ButtonTypography>
-          )}
-          {after && (
-            <span vkuiClass="Button__after" role="presentation">
-              {after}
-            </span>
-          )}
-        </span>
+        {before && (
+          <span vkuiClass="Button__before" role="presentation">
+            {before}
+          </span>
+        )}
+        {children && (
+          <ButtonTypography
+            size={size}
+            sizeY={sizeY}
+            platform={platform}
+            vkuiClass="Button__content"
+            Component="span"
+          >
+            {children}
+          </ButtonTypography>
+        )}
+        {after && (
+          <span vkuiClass="Button__after" role="presentation">
+            {after}
+          </span>
+        )}
       </ButtonBase>
     </AdaptivityProvider>
   );

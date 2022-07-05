@@ -1,3 +1,29 @@
 .ButtonBase {
   position: relative;
 }
+
+.ButtonBase--loading {
+  cursor: progress;
+}
+
+.ButtonBase__in {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: inherit;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.ButtonBase__spinner {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.ButtonBase__spinner + .ButtonBase__in {
+  visibility: hidden;
+}
