@@ -24,16 +24,6 @@
   flex-basis: 0;
 }
 
-.Button--aln-left .Button__in {
-  justify-content: flex-start;
-  text-align: left;
-}
-
-.Button--aln-right .Button__in {
-  justify-content: flex-end;
-  text-align: right;
-}
-
 .Button[disabled] {
   opacity: var(--vkui--opacity_disable);
 }
