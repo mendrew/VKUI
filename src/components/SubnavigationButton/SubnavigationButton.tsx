@@ -2,15 +2,16 @@ import * as React from "react";
 import { HasComponent, HasChildren } from "../../types";
 import { classNames } from "../../lib/classNames";
 import { getClassName } from "../../helpers/getClassName";
-import { getTitleFromChildren, hasReactNode } from "../../lib/utils";
-import { TappableProps, Tappable } from "../Tappable/Tappable";
+import { hasReactNode } from "../../lib/utils";
+import { ButtonBase, ButtonBaseProps } from "../ButtonBase/ButtonBase";
 import { Icon16Dropdown } from "@vkontakte/icons";
 import { usePlatform } from "../../hooks/usePlatform";
 import { Caption } from "../Typography/Caption/Caption";
 import { Subhead } from "../Typography/Subhead/Subhead";
 import "./SubnavigationButton.css";
 
-export interface SubnavigationButtonProps extends Omit<TappableProps, "size"> {
+export interface SubnavigationButtonProps
+  extends Omit<ButtonBaseProps, "size"> {
   size?: "m" | "l";
   selected?: boolean;
   /**
@@ -59,38 +60,31 @@ export const SubnavigationButton = ({
   const platform = usePlatform();
 
   return (
-    <Tappable
+    <ButtonBase
       {...restProps}
       hasActive={false}
-      focusVisibleMode="outside"
-      // eslint-disable-next-line vkui/no-object-expression-in-arguments
       vkuiClass={classNames(
         getClassName("SubnavigationButton", platform),
         `SubnavigationButton--${size}`,
-        {
-          "SubnavigationButton--selected": selected,
-        }
+        selected && "SubnavigationButton--selected"
       )}
-      aria-label={getTitleFromChildren(children)}
     >
-      <span vkuiClass="SubnavigationButton__in">
-        {hasReactNode(before) && (
-          <span vkuiClass="SubnavigationButton__before">{before}</span>
-        )}
-        <SubnavigationButtonTypography
-          textLevel={textLevel}
-          vkuiClass="SubnavigationButton__label"
-          Component="span"
-        >
-          {children}
-        </SubnavigationButtonTypography>
-        {hasReactNode(after) && (
-          <span vkuiClass="SubnavigationButton__after">{after}</span>
-        )}
-        {expandable && (
-          <Icon16Dropdown vkuiClass="SubnavigationButton__expandableIcon" />
-        )}
-      </span>
-    </Tappable>
+      {hasReactNode(before) && (
+        <span vkuiClass="SubnavigationButton__before">{before}</span>
+      )}
+      <SubnavigationButtonTypography
+        textLevel={textLevel}
+        vkuiClass="SubnavigationButton__label"
+        Component="span"
+      >
+        {children}
+      </SubnavigationButtonTypography>
+      {hasReactNode(after) && (
+        <span vkuiClass="SubnavigationButton__after">{after}</span>
+      )}
+      {expandable && (
+        <Icon16Dropdown vkuiClass="SubnavigationButton__expandableIcon" />
+      )}
+    </ButtonBase>
   );
 };

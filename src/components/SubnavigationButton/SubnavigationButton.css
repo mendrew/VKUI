@@ -6,12 +6,6 @@
   user-select: none;
 }
 
-.SubnavigationButton__in {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .SubnavigationButton__before {
   margin-right: 8px;
   color: var(--accent);
