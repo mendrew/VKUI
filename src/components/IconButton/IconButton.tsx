@@ -1,5 +1,5 @@
 import * as React from "react";
-import { TappableProps, Tappable } from "../Tappable/Tappable";
+import { ButtonBase, ButtonBaseProps } from "../ButtonBase/ButtonBase";
 import { classNames } from "../../lib/classNames";
 import { usePlatform } from "../../hooks/usePlatform";
 import { withAdaptivity } from "../../hoc/withAdaptivity";
@@ -7,8 +7,7 @@ import { IOS } from "../../lib/platform";
 import { warnOnce } from "../../lib/warnOnce";
 import "./IconButton.css";
 
-export interface IconButtonProps extends TappableProps {
-  children?: React.ReactNode;
+export interface IconButtonProps extends ButtonBaseProps {
   /**
    * @deprecated будет удалено в 5.0.0. Используйте `children`
    */
@@ -21,7 +20,6 @@ const IconButtonComponent = ({
   icon,
   sizeY,
   children,
-  Component = "button",
   ...restProps
 }: IconButtonProps) => {
   const platform = usePlatform();
@@ -33,9 +31,8 @@ const IconButtonComponent = ({
   }
 
   return (
-    <Tappable
+    <ButtonBase
       {...restProps}
-      Component={restProps.href ? "a" : Component}
       activeEffectDelay={200}
       activeMode="background"
       vkuiClass={classNames(
@@ -45,7 +42,7 @@ const IconButtonComponent = ({
       )}
     >
       {icon || children}
-    </Tappable>
+    </ButtonBase>
   );
 };
 
