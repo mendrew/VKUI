@@ -151,7 +151,6 @@ const ButtonComponent = ({
   before,
   after,
   sizeY,
-  stopPropagation = true,
   ...restProps
 }: ButtonProps) => {
   const platform = usePlatform();
@@ -170,7 +169,7 @@ const ButtonComponent = ({
         // mode={resolvedMode as ButtonBaseProps["mode"]}
         hoverMode={hasNewTokens ? "Button--hover" : "background"}
         activeMode={hasNewTokens ? "Button--active" : "opacity"}
-        stopPropagation={stopPropagation}
+        stopPropagation={true}
         {...restProps}
         vkuiClass={classNames(
           "Button",
