@@ -80,52 +80,45 @@ export const Group = ({
 
   const tabIndex = isTabPanel && tabIndexProp === undefined ? 0 : tabIndexProp;
 
-  const separatorClassName = classNames(
-    styles['Group__separator'],
-    separator === 'show' && styles['Group__separator--force'],
-  );
-
   return (
-    <>
-      <section
-        {...restProps}
-        tabIndex={tabIndex}
-        ref={getRootRef}
-        className={classNames(
-          styles['Group'],
-          platform === Platform.IOS && styles['Group--ios'],
-          sizeXClassNames[sizeX],
-          mode &&
-            {
-              none: styles['Group--mode-none'],
-              plain: styles['Group--mode-plain'],
-              card: styles['Group--mode-card'],
-            }[mode],
+    <section
+      {...restProps}
+      tabIndex={tabIndex}
+      ref={getRootRef}
+      className={classNames(
+        styles['Group'],
+        platform === Platform.IOS && styles['Group--ios'],
+        sizeXClassNames[sizeX],
+        mode &&
           {
-            s: styles['Group--padding-s'],
-            m: styles['Group--padding-m'],
-          }[padding],
-          className,
-        )}
-      >
-        {header}
-        {children}
-        {hasReactNode(description) && (
-          <Footnote className={styles['Group__description']}>{description}</Footnote>
-        )}
-      </section>
+            none: styles['Group--mode-none'],
+            plain: styles['Group--mode-plain'],
+            card: styles['Group--mode-card'],
+          }[mode],
+        {
+          s: styles['Group--padding-s'],
+          m: styles['Group--padding-m'],
+        }[padding],
+        className,
+      )}
+    >
+      {header}
+      {children}
+      {hasReactNode(description) && (
+        <Footnote className={styles['Group__description']}>{description}</Footnote>
+      )}
 
       {separator !== 'hide' && (
-        <React.Fragment>
-          <Spacing
-            className={classNames(separatorClassName, styles['Group__separator--spacing'])}
-            size={16}
-          />
-          <Separator
-            className={classNames(separatorClassName, styles['Group__separator--separator'])}
-          />
-        </React.Fragment>
+        <Spacing
+          className={classNames(
+            styles['Group__separator'],
+            separator === 'show' && styles['Group__separator--force'],
+          )}
+          size={16}
+        >
+          <Separator />
+        </Spacing>
       )}
-    </>
+    </section>
   );
 };

@@ -143,3 +143,11 @@
 .Panel__fade {
   /* Пустой класс для CSS Modules (см. CONTRIBUTING.md)  */
 }
+
+/*
+ * CMP:
+ * Group
+ */
+.Group + .Panel__in-after {
+  padding-bottom: 8px;
+}
