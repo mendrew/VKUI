@@ -90,11 +90,6 @@
   padding: 4px 0 4px 4px;
 }
 
-.PanelHeader--ios .PanelHeader__before .PanelHeaderButton + .PanelHeaderButton--primitive {
-  margin-left: -6px;
-  padding-left: 0;
-}
-
 .PanelHeader--ios .PanelHeader__content {
   text-align: center;
   opacity: 1;
