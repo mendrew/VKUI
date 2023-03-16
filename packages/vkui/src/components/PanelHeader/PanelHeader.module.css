@@ -289,3 +289,14 @@
 .PanelHeader--sep {
   /* Пустой класс для CSS Modules (см. CONTRIBUTING.md)  */
 }
+
+/*
+ * CMP:
+ * Panel
+ */
+.Panel--centered .PanelHeader {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+}
