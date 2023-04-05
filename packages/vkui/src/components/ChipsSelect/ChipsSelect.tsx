@@ -331,7 +331,7 @@ export const ChipsSelect = <Option extends ChipOption>(props: ChipsSelectProps<O
           className,
         )}
         disabled={disabled}
-        role="application"
+        role="combobox"
         aria-disabled={disabled}
         aria-readonly={restProps.readOnly}
         after={
