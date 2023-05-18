@@ -199,6 +199,12 @@ const baseConfig = {
           ],
         },
         {
+          name: 'Modals new',
+          components: () => [
+            `../${VKUI_PACKAGE.PATHS.COMPONENTS_DIR}/ModalPageNew/ModalPageNew.tsx`,
+          ],
+        },
+        {
           name: 'Blocks',
           components: () => [
             `../${VKUI_PACKAGE.PATHS.COMPONENTS_DIR}/Tappable/Tappable.tsx`,

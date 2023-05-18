@@ -1,0 +1,73 @@
+.ModalPageNew__container {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  overflow-x: hidden;
+  overflow-y: auto;
+  z-index: var(--vkui--z_index_modal);
+  -webkit-overflow-scrolling: touch;
+
+  /**
+   * Для удаление скролла в Firefox.
+   * В версии ниже 64 будет виден скролл, но это не ломает функциональность.
+   */
+  scrollbar-width: none;
+
+  /**
+   * В старых браузерах не работает, но это не ломает функциональность.
+   */
+  scroll-snap-type: y mandatory;
+}
+
+/* stylelint-disable-next-line @project-tools/stylelint-atomic */
+.ModalPageNew__container > * {
+  scroll-snap-align: start;
+}
+
+.ModalPageNew__container::-webkit-scrollbar {
+  display: none;
+}
+
+.ModalPageNew__contentIn {
+  background: var(--vkui--color_background_modal);
+  border-radius: var(--vkui--size_border_radius_paper--regular)
+    var(--vkui--size_border_radius_paper--regular) 0 0;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: var(--vkui--size_popup_small--regular);
+}
+
+.ModalPageNew__mask {
+  z-index: var(--vkui--z_index_modal);
+  position: fixed;
+  background: var(--vkui--color_overlay_primary);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+}
+
+/**
+  * В старых браузерах sticky не работает, но это не ломает функциональность.
+  */
+.ModalPageNew__header {
+  z-index: 1;
+  position: sticky;
+  top: 0;
+  border-radius: inherit;
+  background: var(--vkui--color_background_modal);
+}
+
+.ModalPageNew__headerFixed {
+  border-radius: 0;
+}
+
+.ModalPageNew__footer {
+  z-index: 2;
+  position: sticky;
+  bottom: 0;
+  background: var(--vkui--color_background_modal);
+}
