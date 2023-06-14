@@ -12,6 +12,7 @@
     "@project-tools/swc-transform-css-modules": "0.1.0"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.7.3",
     "@csstools/postcss-global-data": "2.0.0",
     "@playwright/experimental-ct-react17": "1.35.1",
     "@playwright/test": "1.35.1",
@@ -41,6 +42,7 @@
     "@vkontakte/vk-bridge": "^2.1.3",
     "@vkontakte/vkui-tokens": "4.35.1",
     "autoprefixer": "^10.4.14",
+    "axe-html-reporter": "^2.2.3",
     "concurrently": "^8.2.0",
     "cross-env": "^7.0.2",
     "css-loader": "^6.8.1",
