@@ -4,9 +4,11 @@ import { PaginationPlayground } from './Pagination.e2e-playground';
 
 test('Pagination', async ({
   mount,
+  expectA11yScanResults,
   expectScreenshotClippedToContent,
   componentPlaygroundProps,
 }) => {
   await mount(<PaginationPlayground {...componentPlaygroundProps} />);
+  await expectA11yScanResults();
   await expectScreenshotClippedToContent();
 });

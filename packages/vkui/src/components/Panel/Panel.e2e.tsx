@@ -9,7 +9,13 @@ test.use({
   },
 });
 
-test('Panel', async ({ mount, expectScreenshotClippedToContent, componentPlaygroundProps }) => {
+test('Panel', async ({
+  mount,
+  expectA11yScanResults,
+  expectScreenshotClippedToContent,
+  componentPlaygroundProps,
+}) => {
   await mount(<PanelPlayground {...componentPlaygroundProps} />);
+  await expectA11yScanResults();
   await expectScreenshotClippedToContent();
 });

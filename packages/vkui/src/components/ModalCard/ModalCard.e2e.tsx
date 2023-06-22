@@ -12,8 +12,14 @@ test.describe('ModalCard', () => {
     },
     onlyForPlatforms: [Platform.IOS, Platform.ANDROID],
   });
-  test('mobile', async ({ mount, expectScreenshotClippedToContent, componentPlaygroundProps }) => {
+  test('mobile', async ({
+    mount,
+    expectA11yScanResults,
+    expectScreenshotClippedToContent,
+    componentPlaygroundProps,
+  }) => {
     await mount(<ModalCardPlayground {...componentPlaygroundProps} />);
+    await expectA11yScanResults();
     await expectScreenshotClippedToContent();
   });
 });
@@ -26,8 +32,14 @@ test.describe('ModalCard', () => {
     },
     onlyForPlatforms: [Platform.IOS, Platform.ANDROID],
   });
-  test('tablet', async ({ mount, expectScreenshotClippedToContent, componentPlaygroundProps }) => {
+  test('tablet', async ({
+    mount,
+    expectA11yScanResults,
+    expectScreenshotClippedToContent,
+    componentPlaygroundProps,
+  }) => {
     await mount(<ModalCardPlayground {...componentPlaygroundProps} />);
+    await expectA11yScanResults();
     await expectScreenshotClippedToContent();
   });
 });
@@ -38,10 +50,12 @@ test.describe(() => {
   });
   test('ModalCard', async ({
     mount,
+    expectA11yScanResults,
     expectScreenshotClippedToContent,
     componentPlaygroundProps,
   }) => {
     await mount(<ModalCardPlayground {...componentPlaygroundProps} />);
+    await expectA11yScanResults();
     await expectScreenshotClippedToContent();
   });
 });

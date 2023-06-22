@@ -16,10 +16,12 @@ test.describe('ModalPageHeader', () => {
   });
   test('ViewWidth.MOBILE', async ({
     mount,
+    expectA11yScanResults,
     expectScreenshotClippedToContent,
     componentPlaygroundProps,
   }) => {
     await mount(<ModalPageHeaderPlayground {...componentPlaygroundProps} />);
+    await expectA11yScanResults();
     await expectScreenshotClippedToContent();
   });
 });
@@ -33,10 +35,12 @@ test.describe('ModalPageHeader', () => {
   });
   test('ViewWidth.DESKTOP', async ({
     mount,
+    expectA11yScanResults,
     expectScreenshotClippedToContent,
     componentPlaygroundProps,
   }) => {
     await mount(<ModalPageHeaderPlayground {...componentPlaygroundProps} />);
+    await expectA11yScanResults();
     await expectScreenshotClippedToContent();
   });
 });
@@ -50,10 +54,12 @@ test.describe('ModalPageHeader', () => {
   });
   test('ViewWidth.MOBILE ios only', async ({
     mount,
+    expectA11yScanResults,
     expectScreenshotClippedToContent,
     componentPlaygroundProps,
   }) => {
     await mount(<ModalPageHeaderIOSPlayground {...componentPlaygroundProps} />);
+    await expectA11yScanResults();
     await expectScreenshotClippedToContent();
   });
 });
@@ -67,10 +73,12 @@ test.describe('ModalPageHeader', () => {
   });
   test('ViewWidth.DESKTOP ios only', async ({
     mount,
+    expectA11yScanResults,
     expectScreenshotClippedToContent,
     componentPlaygroundProps,
   }) => {
     await mount(<ModalPageHeaderIOSPlayground {...componentPlaygroundProps} />);
+    await expectA11yScanResults();
     await expectScreenshotClippedToContent();
   });
 });

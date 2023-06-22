@@ -11,9 +11,11 @@ test.use({
 
 test('Placeholder', async ({
   mount,
+  expectA11yScanResults,
   expectScreenshotClippedToContent,
   componentPlaygroundProps,
 }) => {
   await mount(<PlaceholderPlayground {...componentPlaygroundProps} />);
+  await expectA11yScanResults();
   await expectScreenshotClippedToContent();
 });

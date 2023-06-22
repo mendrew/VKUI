@@ -8,10 +8,12 @@ import {
 
 test('ButtonGroup', async ({
   mount,
+  expectA11yScanResults,
   expectScreenshotClippedToContent,
   componentPlaygroundProps,
 }) => {
   await mount(<ButtonGroupPlayground {...componentPlaygroundProps} />);
+  await expectA11yScanResults();
   await expectScreenshotClippedToContent();
 });
 
@@ -21,8 +23,14 @@ test.describe('ButtonGroup', () => {
       viewWidth: ViewWidth.SMALL_TABLET,
     },
   });
-  test('align', async ({ mount, expectScreenshotClippedToContent, componentPlaygroundProps }) => {
+  test('align', async ({
+    mount,
+    expectA11yScanResults,
+    expectScreenshotClippedToContent,
+    componentPlaygroundProps,
+  }) => {
     await mount(<ButtonGroupWithAlignPlayground {...componentPlaygroundProps} />);
+    await expectA11yScanResults();
     await expectScreenshotClippedToContent();
   });
 });

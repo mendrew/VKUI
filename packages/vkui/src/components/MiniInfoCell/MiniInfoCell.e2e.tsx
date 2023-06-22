@@ -4,9 +4,11 @@ import { MiniInfoCellPlayground } from './MiniInfoCell.e2e-playground';
 
 test('MiniInfoCell', async ({
   mount,
+  expectA11yScanResults,
   expectScreenshotClippedToContent,
   componentPlaygroundProps,
 }) => {
   await mount(<MiniInfoCellPlayground {...componentPlaygroundProps} />);
+  await expectA11yScanResults();
   await expectScreenshotClippedToContent();
 });

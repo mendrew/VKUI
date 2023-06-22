@@ -5,8 +5,14 @@ import {
   TextareaTestFitSizeToContentPlayground,
 } from './Textarea.e2e-playground';
 
-test('Textarea', async ({ mount, expectScreenshotClippedToContent, componentPlaygroundProps }) => {
+test('Textarea', async ({
+  mount,
+  expectA11yScanResults,
+  expectScreenshotClippedToContent,
+  componentPlaygroundProps,
+}) => {
   await mount(<TextareaPlayground {...componentPlaygroundProps} />);
+  await expectA11yScanResults();
   await expectScreenshotClippedToContent();
 });
 
@@ -14,6 +20,7 @@ test.describe('Textarea', () => {
   test('fits size to content', async ({
     mount,
     page,
+    expectA11yScanResults,
     expectScreenshotClippedToContent,
     componentPlaygroundProps,
   }) => {
@@ -21,12 +28,14 @@ test.describe('Textarea', () => {
 
     await page.type('#textarea', '1\n2\n3\n4\n5\n6\n7\n8');
 
+    await expectA11yScanResults();
     await expectScreenshotClippedToContent();
 
     for (let i = 0; i < 12; i++) {
       await page.press('#textarea', 'Backspace');
     }
 
+    await expectA11yScanResults();
     await expectScreenshotClippedToContent();
   });
 });

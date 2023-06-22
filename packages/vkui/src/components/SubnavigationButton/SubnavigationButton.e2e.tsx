@@ -4,9 +4,11 @@ import { SubnavigationButtonPlayground } from './SubnavigationButton.e2e-playgro
 
 test('SubnavigationButton', async ({
   mount,
+  expectA11yScanResults,
   expectScreenshotClippedToContent,
   componentPlaygroundProps,
 }) => {
   await mount(<SubnavigationButtonPlayground {...componentPlaygroundProps} />);
+  await expectA11yScanResults();
   await expectScreenshotClippedToContent();
 });

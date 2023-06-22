@@ -4,9 +4,11 @@ import { ScrollArrowPlayground } from './ScrollArrow.e2e-playground';
 
 test('ScrollArrow', async ({
   mount,
+  expectA11yScanResults,
   expectScreenshotClippedToContent,
   componentPlaygroundProps,
 }) => {
   await mount(<ScrollArrowPlayground {...componentPlaygroundProps} />);
+  await expectA11yScanResults();
   await expectScreenshotClippedToContent();
 });

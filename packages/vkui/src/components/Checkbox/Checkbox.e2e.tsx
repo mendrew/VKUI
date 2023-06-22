@@ -10,15 +10,23 @@ import {
 test.describe('Checkbox', () => {
   test('sizes and description', async ({
     mount,
+    expectA11yScanResults,
     expectScreenshotClippedToContent,
     componentPlaygroundProps,
   }) => {
     await mount(<CheckboxSizesAndDescriptionPlayground {...componentPlaygroundProps} />);
+    await expectA11yScanResults();
     await expectScreenshotClippedToContent();
   });
 
-  test('simple', async ({ mount, expectScreenshotClippedToContent, componentPlaygroundProps }) => {
+  test('simple', async ({
+    mount,
+    expectA11yScanResults,
+    expectScreenshotClippedToContent,
+    componentPlaygroundProps,
+  }) => {
     await mount(<CheckboxSimplePlayground {...componentPlaygroundProps} />);
+    await expectA11yScanResults();
     await expectScreenshotClippedToContent();
   });
 });
@@ -30,10 +38,12 @@ test.describe(() => {
   test.use(testOptions);
   test('Checkbox', async ({
     mount,
+    expectA11yScanResults,
     expectScreenshotClippedToContent,
     componentPlaygroundProps,
   }) => {
     await mount(<CheckboxPlayground {...componentPlaygroundProps} />);
+    await expectA11yScanResults();
     await expectScreenshotClippedToContent();
   });
 });

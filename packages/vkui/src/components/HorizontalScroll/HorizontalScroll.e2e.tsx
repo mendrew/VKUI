@@ -19,10 +19,12 @@ test.describe('HorizontalScroll', () => {
   });
   test('ViewWidth.SMALL_TABLET hasPointer=true', async ({
     mount,
+    expectA11yScanResults,
     expectScreenshotClippedToContent,
     componentPlaygroundProps,
   }) => {
     await mount(<HorizontalScrollSmallTabletPlayground {...componentPlaygroundProps} />);
+    await expectA11yScanResults();
     await expectScreenshotClippedToContent();
   });
 });
@@ -37,10 +39,12 @@ test.describe('HorizontalScroll', () => {
   });
   test('ViewWidth.MOBILE hasPointer=false', async ({
     mount,
+    expectA11yScanResults,
     expectScreenshotClippedToContent,
     componentPlaygroundProps,
   }) => {
     await mount(<HorizontalScrollMobilePlayground {...componentPlaygroundProps} />);
+    await expectA11yScanResults();
     await expectScreenshotClippedToContent();
   });
 });
@@ -52,6 +56,7 @@ test.describe('HorizontalScroll', () => {
   test('has arrows on mouse hover', async ({
     mount,
     page,
+    expectA11yScanResults,
     expectScreenshotClippedToContent,
     componentPlaygroundProps,
   }) => {
@@ -64,6 +69,7 @@ test.describe('HorizontalScroll', () => {
 
     await page.hover(CUSTOM_ROOT_SELECTOR);
 
+    await expectA11yScanResults();
     await expectScreenshotClippedToContent({
       cropToContentSelector: CUSTOM_ROOT_SELECTOR,
     });
@@ -72,6 +78,7 @@ test.describe('HorizontalScroll', () => {
   test('does not have arrows without mouse', async ({
     mount,
     page,
+    expectA11yScanResults,
     expectScreenshotClippedToContent,
     componentPlaygroundProps,
   }) => {
@@ -84,6 +91,7 @@ test.describe('HorizontalScroll', () => {
 
     await page.hover(CUSTOM_ROOT_SELECTOR);
 
+    await expectA11yScanResults();
     await expectScreenshotClippedToContent({
       cropToContentSelector: CUSTOM_ROOT_SELECTOR,
     });

@@ -11,6 +11,7 @@ test.describe('PullToRefresh', () => {
   test('renders spinner properly in default environment', async ({
     page,
     mount,
+    expectA11yScanResults,
     expectScreenshotClippedToContent,
     componentPlaygroundProps,
   }) => {
@@ -19,12 +20,14 @@ test.describe('PullToRefresh', () => {
     await page.mouse.down();
     await page.mouse.move(100, 380, { steps: 10 });
 
+    await expectA11yScanResults();
     await expectScreenshotClippedToContent();
   });
 
   test('renders spinner properly when parent has padding', async ({
     page,
     mount,
+    expectA11yScanResults,
     expectScreenshotClippedToContent,
     componentPlaygroundProps,
   }) => {
@@ -33,6 +36,7 @@ test.describe('PullToRefresh', () => {
     await page.mouse.down();
     await page.mouse.move(200, 380, { steps: 10 });
 
+    await expectA11yScanResults();
     await expectScreenshotClippedToContent();
   });
 });

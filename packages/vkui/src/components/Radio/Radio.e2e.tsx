@@ -9,8 +9,14 @@ test.describe(() => {
       sizeX: SizeType.REGULAR,
     },
   });
-  test('Radio', async ({ mount, expectScreenshotClippedToContent, componentPlaygroundProps }) => {
+  test('Radio', async ({
+    mount,
+    expectA11yScanResults,
+    expectScreenshotClippedToContent,
+    componentPlaygroundProps,
+  }) => {
     await mount(<RadioPlayground {...componentPlaygroundProps} />);
+    await expectA11yScanResults();
     await expectScreenshotClippedToContent();
   });
 });
@@ -18,10 +24,12 @@ test.describe(() => {
 test.describe('Radio', () => {
   test('sizes and description', async ({
     mount,
+    expectA11yScanResults,
     expectScreenshotClippedToContent,
     componentPlaygroundProps,
   }) => {
     await mount(<RadioWithSizesAndDescriptionPlayground {...componentPlaygroundProps} />);
+    await expectA11yScanResults();
     await expectScreenshotClippedToContent();
   });
 });

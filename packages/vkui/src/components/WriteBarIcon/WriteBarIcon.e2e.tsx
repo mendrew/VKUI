@@ -4,9 +4,11 @@ import { WriteBarIconPlayground } from './WriteBarIcon.e2e-playground';
 
 test('WriteBarIcon', async ({
   mount,
+  expectA11yScanResults,
   expectScreenshotClippedToContent,
   componentPlaygroundProps,
 }) => {
   await mount(<WriteBarIconPlayground {...componentPlaygroundProps} />);
+  await expectA11yScanResults();
   await expectScreenshotClippedToContent();
 });

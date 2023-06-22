@@ -3,8 +3,14 @@ import { expect, test } from '@vkui-e2e/test';
 import { Platform } from '../../lib/platform';
 import { SliderPlayground, SliderPlaygroundForKeyboardTest } from './Slider.e2e-playground';
 
-test('Slider', async ({ mount, expectScreenshotClippedToContent, componentPlaygroundProps }) => {
+test('Slider', async ({
+  mount,
+  expectA11yScanResults,
+  expectScreenshotClippedToContent,
+  componentPlaygroundProps,
+}) => {
   await mount(<SliderPlayground {...componentPlaygroundProps} />);
+  await expectA11yScanResults();
   await expectScreenshotClippedToContent();
 });
 
