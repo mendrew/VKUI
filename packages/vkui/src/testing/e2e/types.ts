@@ -19,6 +19,7 @@ export interface ScreenshotWithClipToContentOptions {
 }
 
 export interface VKUITestHelpers {
+  expectA11yScanResults(): Promise<void>;
   componentPlaygroundProps: ComponentPlaygroundProps;
   expectScreenshotClippedToContent(options?: ScreenshotWithClipToContentOptions): Promise<void>;
   /** @private  */
