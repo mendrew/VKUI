@@ -1,4 +1,5 @@
 import type { AppearanceType } from '@vkontakte/vk-bridge';
+import axe from 'axe-core';
 import type { AdaptivityProps } from '../../components/AdaptivityProvider/AdaptivityContext';
 import { Platform } from '../../lib/platform';
 import type { ComponentPlaygroundProps } from './ComponentPlayground';
@@ -24,4 +25,8 @@ export interface VKUITestHelpers {
   expectScreenshotClippedToContent(options?: ScreenshotWithClipToContentOptions): Promise<void>;
   /** @private  */
   _skipByOnlyForProps: void;
+}
+
+export interface AxeResultsPartial extends Partial<axe.AxeResults> {
+  violations: axe.Result[];
 }
