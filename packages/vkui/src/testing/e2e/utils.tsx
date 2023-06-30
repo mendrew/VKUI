@@ -132,3 +132,24 @@ export function generateCustomScreenshotName(
     .join(' ')
     .toLocaleLowerCase();
 }
+
+// export function generateA11yTargetFromSubDirName(subdir: string) {
+//   const ext = '.e2e.tsx';
+
+//   const [_filePath, testParams] = subdir.split(`${ext}-`);
+
+//   const [mainTestTitle, ...restTestTitles] = testParams.split('-');
+//   const [platform, browserName, dot, appearance] = restTestTitles.splice(-4);
+
+//   const filePath = _filePath.split('-').join('/');
+
+//   return [
+//     `[${platform} (${browserName}) ${dot} ${appearance}]`,
+//     '›',
+//     `${filePath}${ext}`,
+//     '›',
+//     mainTestTitle,
+//     '›',
+//     ...restTestTitles,
+//   ];
+// }
