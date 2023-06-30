@@ -71,7 +71,7 @@ jobs:
         uses: actions/upload-artifact@v3
         if: always()
         with:
-          name: e2e-output
+          name: e2e-output ${{ inputs.ref }}
           path: |
             packages/vkui/__diff_output__/
             packages/vkui/e2e-results.json
@@ -80,6 +80,6 @@ jobs:
         uses: actions/upload-artifact@v3
         if: always()
         with:
-          name: playwright-report
+          name: playwright-report ${{ inputs.ref }}
           path: packages/vkui/playwright-report/
           retention-days: 30
