@@ -44,32 +44,6 @@ jobs:
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Action"
 
-      - name: Bump by version type
-        if: ${{ !github.event.inputs.custom_version }}
-        run: yarn workspace @vkontakte/vkui version --${{ github.event.inputs.type }} --no-commit-hooks
-
-      - name: Bump by custom version
-        if: ${{ github.event.inputs.custom_version }}
-        run: yarn workspace @vkontakte/vkui version --new-version ${{ github.event.inputs.custom_version }} --no-commit-hooks
-
-      - name: Run linters
-        run: yarn run lint
-
-      - name: Run @vkontakte/vkui unit tests
-        run: yarn workspace @vkontakte/vkui run test
-
-      - name: Pushing changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.DEVTOOLS_GITHUB_TOKEN }}
-          branch: ${{ github.ref }}
-
-      - name: Create stable branch
-        uses: VKCOM/gh-actions/VKUI/stable-branch@main
-        with:
-          token: ${{ secrets.DEVTOOLS_GITHUB_TOKEN }}
-          directory: packages/vkui/
-
       - name: Publishing release
         run: yarn workspace @vkontakte/vkui publish --non-interactive
         env:
