@@ -44,11 +44,6 @@ jobs:
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Action"
 
-      - name: Publishing release
-        run: yarn workspace @vkontakte/vkui publish --non-interactive
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPMJS_PUBLISH_TOKEN }}
-
       - name: Save updated package version to env
         id: updated_version
         run: echo "version=$(yarn workspace @vkontakte/vkui --silent run --silent package:version)" >> $GITHUB_OUTPUT
