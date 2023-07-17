@@ -187,7 +187,6 @@ jobs:
       - test
       - fetch_base_and_head
       - test_e2e
-      - test_e2e_base
     runs-on: ubuntu-latest
     name: Report CI results
     steps:
@@ -332,3 +331,145 @@ jobs:
 
             Commit ${{ github.event.pull_request.head.sha }}
           edit-mode: replace
+
+  axe-report:
+    if: |
+      github.actor != 'dependabot[bot]' &&
+      needs.changed_files.outputs.package_vkui == 'true'
+    needs:
+      - changed_files
+      - fetch_base_and_head
+      - test_e2e
+    runs-on: ubuntu-latest
+    name: Get Axe Accessibility Report
+    steps:
+      - name: Download Axe Accessibility Report artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: axe-report ${{ needs.fetch_base_and_head.outputs.HEAD }}
+          path: axe-report/
+
+      - name: Upload Axe Accessibility Report S3
+        uses: VKCOM/gh-actions/VKUI/s3@main
+        with:
+          awsAccessKeyId: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          awsSecretAccessKey: ${{ secrets.AWS_SECRET_KEY }}
+          awsBucket: vkui-screenshot
+          awsEndpoint: https://hb.bizmrg.com
+          command: upload
+          commandUploadSrc: axe-report/
+          commandUploadDist: pull/${{ github.event.pull_request.number }}/${{ github.event.pull_request.head.sha }}/axe-report
+
+  a11y_violations:
+    if: |
+      github.actor != 'dependabot[bot]' &&
+      needs.changed_files.outputs.package_vkui == 'true'
+    needs:
+      - changed_files
+      - fetch_base_and_head
+      - test_e2e
+      - test_e2e_base
+    runs-on: ubuntu-latest
+    name: Get violations count from a11y artifacts
+    outputs:
+      BASE: ${{ fromJson(steps.get-violations.outputs.BASE) }}
+      HEAD: ${{ fromJson(steps.get-violations.outputs.HEAD) }}
+    steps:
+      - name: Download a11y test artifact for HEAD
+        uses: actions/download-artifact@v3
+        with:
+          name: a11y-output ${{ needs.fetch_base_and_head.outputs.HEAD }}
+          path: a11y-output/
+
+      - name: Download a11y test artifact for BASE
+        uses: actions/download-artifact@v3
+        with:
+          name: a11y-output ${{ needs.fetch_base_and_head.outputs.BASE }}
+          path: a11y-output-base/
+
+      - name: Get number of violations for BASE and HEAD
+        id: get-violations
+        run: |
+          basejson=`cat a11y-output-base/a11y-results.json`
+          headjson=`cat a11y-output/a11y-results.json`
+          echo "BASE=$(jq -r '.count' <<< $basejson)" >> $GITHUB_OUTPUT
+          echo "HEAD=$(jq -r '.count' <<< $headjson)" >> $GITHUB_OUTPUT
+
+  axe_comment:
+    if: |
+      github.actor != 'dependabot[bot]' &&
+      needs.changed_files.outputs.package_vkui == 'true'
+    needs:
+      - changed_files
+      - fetch_base_and_head
+      - test_e2e
+      - test_e2e_base
+      - axe-report
+      - a11y_violations
+    runs-on: ubuntu-latest
+    name: Axe Report comment
+    steps:
+      - name: Find Axe Report URL comment
+        uses: peter-evans/find-comment@v2
+        id: find_url_comment
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-author: 'github-actions[bot]'
+          body-includes: <!-- axe_report_url -->
+
+      - name: stable a11y — Create or update a11y comment
+        if: ${{ needs.a11y_violations.outputs.HEAD == needs.a11y_violations.outputs.BASE }}
+        uses: peter-evans/create-or-update-comment@v3
+        with:
+          comment-id: ${{ steps.find_url_comment.outputs.comment-id }}
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            <!-- axe_report_url -->
+            ## ♿ `@axe-core/playwright` Report
+
+            ### 👌 This PR does not affect accessibility 👌
+
+            > There are ${{ needs.a11y_violations.outputs.HEAD }} violations on ${{ needs.fetch_base_and_head.outputs.HEAD }} compared to ${{ needs.a11y_violations.outputs.BASE }} violations on ${{ needs.fetch_base_and_head.outputs.BASE }}.
+
+            See full [Axe Accessibility Report](https://vkui-screenshot.hb.bizmrg.com/pull/${{ github.event.pull_request.number }}/${{ github.event.pull_request.head.sha }}/axe-report/index.html)
+          edit-mode: replace
+
+      - name: improved a11y — Create or update a11y comment
+        if: ${{ needs.a11y_violations.outputs.HEAD < needs.a11y_violations.outputs.BASE }}
+        uses: peter-evans/create-or-update-comment@v3
+        with:
+          comment-id: ${{ steps.find_url_comment.outputs.comment-id }}
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            <!-- axe_report_url -->
+            ## ♿ `@axe-core/playwright` Report
+
+            ### 🎉 Hooray! This PR improves accessibility! 🎉
+
+            > There are ${{ needs.a11y_violations.outputs.HEAD }} violations on ${{ needs.fetch_base_and_head.outputs.HEAD }} compared to ${{ needs.a11y_violations.outputs.BASE }} violations on ${{ needs.fetch_base_and_head.outputs.BASE }}.
+
+            See full [Axe Accessibility Report](https://vkui-screenshot.hb.bizmrg.com/pull/${{ github.event.pull_request.number }}/${{ github.event.pull_request.head.sha }}/axe-report/index.html)
+          edit-mode: replace
+
+      - name: deteriorated a11y — Create or update a11y comment
+        if: ${{ needs.a11y_violations.outputs.HEAD > needs.a11y_violations.outputs.BASE }}
+        uses: peter-evans/create-or-update-comment@v3
+        with:
+          comment-id: ${{ steps.find_url_comment.outputs.comment-id }}
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            <!-- axe_report_url -->
+            ## ♿ `@axe-core/playwright` Report
+
+            ### 🚨 Attention! This PR deteriorates accessibility! 🚨
+
+            > There are ${{ needs.a11y_violations.outputs.HEAD }} violations on ${{ needs.fetch_base_and_head.outputs.HEAD }} compared to ${{ needs.a11y_violations.outputs.BASE }} violations on ${{ needs.fetch_base_and_head.outputs.BASE }}.
+
+            See full [Axe Accessibility Report](https://vkui-screenshot.hb.bizmrg.com/pull/${{ github.event.pull_request.number }}/${{ github.event.pull_request.head.sha }}/axe-report/index.html)
+          edit-mode: replace
+
+      - name: Fails job if a11y has deteriorated
+        if: ${{ needs.a11y_violations.outputs.HEAD > needs.a11y_violations.outputs.BASE }}
+        run: |
+          echo "::error file=packages/vkui/src/index.ts,line=1::VKUI a11y has decreased"
+          exit 1

@@ -76,10 +76,25 @@ jobs:
             packages/vkui/__diff_output__/
             packages/vkui/e2e-results.json
 
+      - name: Upload a11y artifact
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: a11y-output ${{ inputs.ref }}
+          path: packages/vkui/a11y-results.json
+
       - name: Upload Playwright HTML report
         uses: actions/upload-artifact@v3
         if: always()
         with:
           name: playwright-report ${{ inputs.ref }}
           path: packages/vkui/playwright-report/
+          retention-days: 30
+
+      - name: Upload Axe Accessibility HTML report
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: axe-report ${{ inputs.ref }}
+          path: packages/vkui/axe-report/
           retention-days: 30
