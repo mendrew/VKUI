@@ -1,0 +1,13 @@
+/* stylelint-disable @project-tools/stylelint-atomic */
+.AccordionSummary__icon {
+  color: var(--vkui--color_icon_secondary);
+}
+
+.AccordionContent {
+  overflow: hidden;
+}
+
+.AccordionContent__in {
+  margin-top: -100%;
+  transition: margin-top 100ms ease-in-out;
+}

@@ -215,6 +215,8 @@ export type { PaginationProps } from './components/Pagination/Pagination';
 export { Accordion } from './components/Accordion/Accordion';
 export type { AccordionProps } from './components/Accordion/Accordion';
 export type { AccordionSummaryProps } from './components/Accordion/AccordionSummary';
+export { Collapse } from './components/Collapse/Accordion';
+export type { CollapseProps } from './components/Collapse/Accordion';
 
 /**
  * Forms
