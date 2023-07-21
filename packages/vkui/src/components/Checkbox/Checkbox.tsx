@@ -17,7 +17,6 @@ import { warnOnce } from '../../lib/warnOnce';
 import { HasRef, HasRootRef } from '../../types';
 import { ACTIVE_EFFECT_DELAY, Tappable, type TappableProps } from '../Tappable/Tappable';
 import { Footnote } from '../Typography/Footnote/Footnote';
-import { Text } from '../Typography/Text/Text';
 import { VisuallyHidden } from '../VisuallyHidden/VisuallyHidden';
 import styles from './Checkbox.module.css';
 
@@ -191,7 +190,7 @@ export const Checkbox = ({
       </div>
       <div className={styles['Checkbox__content']}>
         <div className={styles['Checkbox__title']}>
-          <Text>{children}</Text>
+          <span>{children}</span>
           <div className={styles['Checkbox__titleAfter']}>{titleAfter}</div>
         </div>
         {hasReactNode(description) && (
