@@ -46,7 +46,7 @@ jobs:
           git config --local user.name "GitHub Action"
 
       - name: Make patch
-        uses: VKCOM/gh-actions/VKUI/patch@51cd935b719f62259415ed7849f00e20a68c5a34
+        uses: VKCOM/gh-actions/VKUI/patch@139cee9e4b18d99a6d7ba6f944b39ce62610dd35
         with:
           token: ${{ secrets.DEVTOOLS_GITHUB_TOKEN }}
           directory: packages/vkui/
