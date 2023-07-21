@@ -5,19 +5,19 @@ on:
     types: [closed]
 
 jobs:
-  undeploy_s3:
-    runs-on: ubuntu-latest
-    name: Undeploy S3
-    steps:
-      - name: Delete from S3
-        uses: VKCOM/gh-actions/VKUI/s3@main
-        with:
-          awsAccessKeyId: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          awsSecretAccessKey: ${{ secrets.AWS_SECRET_KEY }}
-          awsBucket: vkui-screenshot
-          awsEndpoint: https://hb.bizmrg.com
-          command: delete
-          commandDeletePrefix: pull/${{ github.event.pull_request.number }}
+  # undeploy_s3:
+  #   runs-on: ubuntu-latest
+  #   name: Undeploy S3
+  #   steps:
+  #     - name: Delete from S3
+  #       uses: VKCOM/gh-actions/VKUI/s3@main
+  #       with:
+  #         awsAccessKeyId: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  #         awsSecretAccessKey: ${{ secrets.AWS_SECRET_KEY }}
+  #         awsBucket: vkui-screenshot
+  #         awsEndpoint: https://hb.bizmrg.com
+  #         command: delete
+  #         commandDeletePrefix: pull/${{ github.event.pull_request.number }}
 
   patch:
     if: github.event.pull_request.merged == true && contains(github.event.pull_request.labels.*.name, 'patch')
@@ -46,7 +46,7 @@ jobs:
           git config --local user.name "GitHub Action"
 
       - name: Make patch
-        uses: VKCOM/gh-actions/VKUI/patch@main
+        uses: VKCOM/gh-actions/VKUI/patch@51cd935b719f62259415ed7849f00e20a68c5a34
         with:
           token: ${{ secrets.DEVTOOLS_GITHUB_TOKEN }}
           directory: packages/vkui/
